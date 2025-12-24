@@ -1,6 +1,15 @@
-# YOLO Object Detection Project
+# Aircraft Detection with YOLO
 
-This project provides a complete local workflow for training and running a YOLO object detection model using datasets exported from Label Studio.
+This project provides a complete local workflow for labeling, training, and running a YOLO-based object detection model using datasets annotated with Label Studio.
+
+The workflow covers:
+
+- Image labeling with Label Studio (local, Conda)
+- Dataset preparation and splitting
+- YOLO training
+- Real-time inference on images, videos, and USB cameras
+
+---
 
 ## Project Structure
 
@@ -51,6 +60,13 @@ Verify GPU:
 ## Dataset Preparation
 
 1. Export YOLO labels from Label Studio
+
+Start label-studio:
+
+    label-studio start
+
+Go to: `http://localhost:8080` and do the labeling and export zip file
+
 2. Copy images into dataset/images
 3. Place labels into dataset/labels
 4. Run dataset split:
