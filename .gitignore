@@ -28,8 +28,8 @@ dataset/validation/
 # YOLO outputs
 runs/
 
-# Models (optional: keep if you want)
-# models/*.pt
+# Models
+models/*.pt
 
 # Logs
 *.log

@@ -11,24 +11,70 @@ from ultralytics import YOLO
 # Define and parse user input arguments
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--model', help='Path to YOLO model file (example: "runs/detect/train/weights/best.pt")',
-                    required=True)
-parser.add_argument('--source', help='Image source, can be image file ("test.jpg"), \
-                    image folder ("test_dir"), video file ("testvid.mp4"), index of USB camera ("usb0"), or index of Picamera ("picamera0")', 
-                    required=True)
-parser.add_argument('--thresh', help='Minimum confidence threshold for displaying detected objects (example: "0.4")',
-                    default=0.5)
-parser.add_argument('--resolution', help='Resolution in WxH to display inference results at (example: "640x480"), \
-                    otherwise, match source resolution',
-                    default=None)
-parser.add_argument('--record', help='Record results from video or webcam and save it as "demo1.avi". Must specify --resolution argument to record.',
-                    action='store_true')
+# parser.add_argument('--model', help='Path to YOLO model file (example: "runs/detect/train/weights/best.pt")',
+#                     required=True)
+# parser.add_argument('--source', help='Image source, can be image file ("test.jpg"), \
+#                     image folder ("test_dir"), video file ("testvid.mp4"), index of USB camera ("usb0"), or index of Picamera ("picamera0")', 
+#                     required=True)
+# parser.add_argument('--thresh', help='Minimum confidence threshold for displaying detected objects (example: "0.4")',
+#                     default=0.5)
+# parser.add_argument('--resolution', help='Resolution in WxH to display inference results at (example: "640x480"), \
+#                     otherwise, match source resolution',
+#                     default=None)
+# parser.add_argument('--record', help='Record results from video or webcam and save it as "demo1.avi". Must specify --resolution argument to record.',
+#                     action='store_true')
+
+parser.add_argument(
+    '--model',
+    help='Path to YOLO model file. If not set, use latest model in models/',
+    default=None
+)
+
+parser.add_argument(
+    '--source',
+    help='Image source. Default: usb0',
+    default='usb0'
+)
+
+parser.add_argument(
+    '--thresh',
+    help='Minimum confidence threshold',
+    type=float,
+    default=0.5
+)
+
+parser.add_argument(
+    '--resolution',
+    help='Resolution WxH. Default: 1280x720',
+    default='1280x720'
+)
+
+parser.add_argument(
+    '--record',
+    help='Record output video',
+    action='store_true'
+)
 
 args = parser.parse_args()
 
+# Model selection logic
+if args.model:
+    model_path = args.model
+else:
+    model_dir = 'models'
+    model_files = glob.glob(os.path.join(model_dir, '*.pt'))
+
+    if not model_files:
+        print('ERROR: No model found in models/ folder.')
+        sys.exit(1)
+
+    model_files.sort(key=os.path.getmtime, reverse=True)
+    model_path = model_files[0]
+
+    print(f'Using latest model: {model_path}')
 
 # Parse user inputs
-model_path = args.model
+# model_path = args.model
 img_source = args.source
 min_thresh = args.thresh
 user_res = args.resolution
@@ -188,6 +234,7 @@ while True:
 
         # Draw box if confidence threshold is high enough
         if conf > 0.5:
+        # if conf > min_thresh:
 
             color = bbox_colors[classidx % 10]
             cv2.rectangle(frame, (xmin,ymin), (xmax,ymax), color, 2)
