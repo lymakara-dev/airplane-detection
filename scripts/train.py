@@ -19,17 +19,17 @@ def main():
     date_str = datetime.now().strftime("%Y_%m_%d")
     run_name = f"train_{date_str}"
 
-    # Load pretrained YOLOv8 model
-    model = YOLO("yolov8s.pt")
+    # Load pretrained YOLOv11 model
+    model = YOLO("yolo11s.pt")
 
     # Start training
     model.train(
         data=str(data_yaml),
-        epochs=10,
+        epochs=60,
         imgsz=640,
         batch=16,
         device=0,
-        workers=8,
+        workers=4,
         project=str(runs_dir),
         name=run_name,
         pretrained=True,

@@ -6,9 +6,9 @@ opencv-python
 pyyaml
 numpy
 
-// install label-studio for data annotation
-label-studio
+# install label-studio for data annotation
+# label-studio
 
-// install matplotlib for data visualization and tqdm for progress bars 
-matplotlib
-tqdm
+# install matplotlib for data visualization and tqdm for progress bars 
+# matplotlib
+# tqdm

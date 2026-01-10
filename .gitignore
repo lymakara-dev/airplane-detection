@@ -22,8 +22,12 @@ Thumbs.db
 # Dataset (do NOT commit large data)
 dataset/images/
 dataset/labels/
+dataset/images2/
+dataset/labels2/
 dataset/train/
 dataset/validation/
+dataset/valid/
+dataset/test/
 
 # YOLO outputs
 runs/
