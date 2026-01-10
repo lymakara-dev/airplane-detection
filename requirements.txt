@@ -5,6 +5,8 @@ torchaudio
 opencv-python
 pyyaml
 numpy
+mss
+keyboard
 
 # install label-studio for data annotation
 # label-studio
