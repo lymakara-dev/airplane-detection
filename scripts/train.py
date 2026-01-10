@@ -23,9 +23,6 @@ model_type = args.modelType
 if not os.path.isdir(data_path):
    print('Directory specified by --datapath not found. Verify the path is correct (and uses double back slashes if on Windows) and try again.')
    sys.exit(0)
-if not os.path.isdir(model_type):
-   print('Directory specified by --modelType not found. Verify the path is correct (and uses double back slashes if on Windows) and try again.')
-   sys.exit(0)
 
 def main():
     # Resolve project root

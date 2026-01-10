@@ -50,7 +50,7 @@ args = parser.parse_args()
 if args.model:
     model_path = args.model
 else:
-    model_dir = 'models'
+    model_dir = 'models/original'
     model_files = glob.glob(os.path.join(model_dir, '*.pt'))
 
     if not model_files:
