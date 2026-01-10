@@ -1,0 +1,6 @@
+path: D:\I5\AI&Image Project\aircraft-detection\dataset\sharpen
+train: train/images
+val: validation/images
+nc: 1
+names:
+- Airplane

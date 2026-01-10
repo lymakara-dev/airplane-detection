@@ -2,15 +2,39 @@ from ultralytics import YOLO
 from pathlib import Path
 from datetime import datetime
 import shutil
+import argparse
+import sys
+import os
+
+# Define and parse user input arguments
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--datapath', help='Path to data folder containing image and annotation files',
+                    required=True)
+parser.add_argument('--modelType', help='Path to data folder containing image and annotation files',
+                    required=True)
+
+args = parser.parse_args()
+
+data_path = args.datapath
+model_type = args.modelType
+
+# Check for valid entries
+if not os.path.isdir(data_path):
+   print('Directory specified by --datapath not found. Verify the path is correct (and uses double back slashes if on Windows) and try again.')
+   sys.exit(0)
+if not os.path.isdir(model_type):
+   print('Directory specified by --modelType not found. Verify the path is correct (and uses double back slashes if on Windows) and try again.')
+   sys.exit(0)
 
 def main():
     # Resolve project root
     root = Path(__file__).resolve().parents[1]
 
     # Dataset config
-    data_yaml = root / "dataset" / "data.yaml"
-    runs_dir = root / "runs" / "detect"
-    model_dir = root / "models"
+    data_yaml = root / data_path / "data.yaml"
+    runs_dir = root / "runs" / model_type /"detect"
+    model_dir = root / model_type
 
     # Create model folder if missing
     model_dir.mkdir(exist_ok=True)

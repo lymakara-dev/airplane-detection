@@ -59,7 +59,7 @@ else:
 
     print(f'Using latest model: {model_path}')
 
-MODEL_PATH = model_path           # ← change to your model
+MODEL_PATH = model_path           
 CONF_THRESHOLD = 0.45
 SOURCE = "./test_images/"                 # folder or single image path
 # SOURCE = "bus.jpg"                    # ← or single image

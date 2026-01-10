@@ -20,12 +20,14 @@ Thumbs.db
 .idea/
 
 # Dataset (do NOT commit large data)
-dataset/images/
-dataset/labels/
-dataset/images2/
-dataset/labels2/
-dataset/train/
-dataset/validation/
+dataset/original/images/
+dataset/original/labels/
+dataset/sharpen/images/
+dataset/sharpen/labels/
+dataset/original/train/
+dataset/original/validation/
+dataset/sharpen/train/
+dataset/sharpen/validation/
 dataset/valid/
 dataset/test/
 
@@ -34,6 +36,8 @@ runs/
 
 # Models
 models/*.pt
+models/original/
+models/sharpen/
 
 # Logs
 *.log

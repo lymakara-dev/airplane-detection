@@ -37,10 +37,10 @@ input_label_path = os.path.join(data_path,'labels')
 
 # Define paths to image and annotation folders
 cwd = os.getcwd()
-train_img_path = os.path.join(cwd,'dataset/train/images')
-train_txt_path = os.path.join(cwd,'dataset/train/labels')
-val_img_path = os.path.join(cwd,'dataset/validation/images')
-val_txt_path = os.path.join(cwd,'dataset/validation/labels')
+train_img_path = os.path.join(data_path,'train/images')
+train_txt_path = os.path.join(data_path,'train/labels')
+val_img_path = os.path.join(data_path,'validation/images')
+val_txt_path = os.path.join(data_path,'validation/labels')
 
 # Create folders if they don't already exist
 for dir_path in [train_img_path, train_txt_path, val_img_path, val_txt_path]:

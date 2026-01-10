@@ -5,6 +5,23 @@
 
 import yaml
 import os
+import argparse
+import sys
+
+# Define and parse user input arguments
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--datapath', help='Path to data folder containing image and annotation files',
+                    required=True)
+
+args = parser.parse_args()
+
+data_path = args.datapath
+
+# Check for valid entries
+if not os.path.isdir(data_path):
+   print('Directory specified by --datapath not found. Verify the path is correct (and uses double back slashes if on Windows) and try again.')
+   sys.exit(0)
 
 def create_data_yaml(path_to_classes_txt, path_to_data_yaml):
 
@@ -21,7 +38,7 @@ def create_data_yaml(path_to_classes_txt, path_to_data_yaml):
 
   # Create data dictionary
   data = {
-      'path': 'dataset',
+      'path': data_path,
       'train': 'train/images',
       'val': 'validation/images',
       'nc': number_of_classes,
@@ -36,8 +53,8 @@ def create_data_yaml(path_to_classes_txt, path_to_data_yaml):
   return
 
 # Define path to classes.txt and run function
-path_to_classes_txt = 'dataset/classes.txt'
-path_to_data_yaml = 'dataset/data.yaml'
+path_to_classes_txt = os.path.join(data_path,'classes.txt')
+path_to_data_yaml = os.path.join(data_path,'data.yaml')
 
 create_data_yaml(path_to_classes_txt, path_to_data_yaml)
 
