@@ -44,19 +44,44 @@ parser.add_argument(
     action='store_true'
 )
 
+parser.add_argument(
+    '--path',
+    help='Path to YOLO model file. If not set, use latest model in models/',
+    default=None
+)
+
 args = parser.parse_args()
 
 # Model selection logic
 if args.model:
     model_path = args.model
-else:
-    model_dir = 'models'
+elif args.path:
+    model_dir = os.path.join('models', args.path)
     model_files = glob.glob(os.path.join(model_dir, '*.pt'))
 
     if not model_files:
         print('ERROR: No model found in models/ folder.')
         sys.exit(1)
 
+    model_files.sort(key=os.path.getmtime, reverse=True)
+    model_path = model_files[0]
+
+    print(f'Using latest model: {model_path}')
+else:
+    model_dir = 'models'
+    model_files = glob.glob(os.path.join(model_dir, '*.pt'))
+
+    if not model_files:
+        model_dir = 'models/original'
+        model_files = glob.glob(os.path.join(model_dir, '*.pt'))
+        if not model_files:
+            model_dir = 'models/sharpen'
+            model_files = glob.glob(os.path.join(model_dir, '*.pt'))
+            if not model_files:
+                print('ERROR: No model found in models/ folder.')
+                sys.exit(1)
+
+    print(f'Using latest model latest models in: {model_dir}')
     model_files.sort(key=os.path.getmtime, reverse=True)
     model_path = model_files[0]
 

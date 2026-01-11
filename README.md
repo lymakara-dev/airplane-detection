@@ -93,13 +93,46 @@ After training, copy the final model into models/:
 
 ## Inference
 
-Webcam:
+Output Image from test_images folder:
+    original model:
+        python inference/yolo_detect_input_image.py --path original
 
-    python inference/yolo_detect.py --model models/aircraft.pt --source usb0 --resolution 1280x720
+    sharpen model:
+        python inference/yolo_detect_input_image.py --path sharpen
+
+    running avialable model:
+        python inference/yolo_detect_input_image.py
+
+Share Screen:
+    original model:
+        python inference/yolo_detect_share_screen.py --path original
+
+    sharpen model:
+        python inference/yolo_detect_share_screen.py --path sharpen
+
+    running avialable model:
+        python inference/yolo_detect_share_screen.py
+
+Webcam:
+    original model:
+        python inference/yolo_detect.py --model models/aircraft.pt --source usb0 --resolution 1280x720 --path original
+
+    sharpen model:
+        python inference/yolo_detect.py --model models/aircraft.pt --source usb0 --resolution 1280x720 --path sharpen
+    
+    running avialable model:
+        python inference/yolo_detect.py --model models/aircraft.pt --source usb0 --resolution 1280x720
 
 Video file:
 
-    python inference/yolo_detect.py --model models/aircraft.pt --source video.mp4
+    original model:
+        python inference/yolo_detect.py --model models/aircraft.pt --source video.mp4 --path original
+
+    sharpen model:
+        python inference/yolo_detect.py --model models/aircraft.pt --source video.mp4 --path sharpen
+
+    running avialable model:
+        python inference/yolo_detect.py --model models/aircraft.pt --source video.mp4
 
 ## Notes
 
