@@ -20,8 +20,8 @@ Thumbs.db
 .idea/
 
 # Dataset (do NOT commit large data)
-dataset/raw/images/
-dataset/raw/labels/
+dataset/raw/images/*
+dataset/raw/labels/*
 dataset/enhanced/
 dataset/splits/
 dataset/train/
@@ -29,12 +29,14 @@ dataset/validation/
 dataset/valid/
 dataset/val/
 dataset/test/
+inference/input_detect_images/*
+inference/output_detect_images/*
 
 # YOLO outputs
 runs/
 
 # Models
-# models/*.pt
+models/*.pt
 
 # Logs
 *.log

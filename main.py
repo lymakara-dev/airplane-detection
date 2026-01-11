@@ -15,7 +15,11 @@ def run(cmd):
 
 def main():
 
-    run([PY, S / "enhance_dataset.py"])
+    # Enhancement option
+    # run([PY, S / "enhance_dataset.py"])
+    run([PY, S / "sharpen_all_images_unsharp.py"])
+
+    # Set up trainning and evaluate
     run([PY, S / "split_dataset.py"])
     run([PY, S / "create_data_yaml.py"])
     run([PY, S / "train.py"])

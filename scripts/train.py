@@ -41,9 +41,9 @@ def train_one(tag: str, data_yaml: Path):
     # Start training
     model.train(
         data=str(data_yaml),
-        epochs=1,
+        epochs=60,
         imgsz=640,
-        batch=24,
+        batch=16,
         device=0,
         workers=12,
         project=str(runs_dir),
