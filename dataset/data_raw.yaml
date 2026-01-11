@@ -1,0 +1,7 @@
+path: dataset/splits/raw
+train: train/images
+val: val/images
+test: test/images
+nc: 1
+names:
+- Airplane

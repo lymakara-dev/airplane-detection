@@ -1,47 +1,22 @@
-# Python function to automatically create data.yaml config file
-# 1. Reads "classes.txt" file to get list of class names
-# 2. Creates data dictionary with correct paths to folders, number of classes, and names of classes
-# 3. Writes data in YAML format to data.yaml
-
 import yaml
-import os
+from pathlib import Path
 
-def create_data_yaml(path_to_classes_txt, path_to_data_yaml):
+ROOT = Path(__file__).resolve().parents[1]
 
-  # Read class.txt to get class names
-  if not os.path.exists(path_to_classes_txt):
-    print(f'classes.txt file not found! Please create a classes.txt labelmap and move it to {path_to_classes_txt}')
-    return
-  with open(path_to_classes_txt, 'r') as f:
-    classes = []
-    for line in f.readlines():
-      if len(line.strip()) == 0: continue
-      classes.append(line.strip())
-  number_of_classes = len(classes)
+classes = [c.strip() for c in open(ROOT/"dataset/classes.txt") if c.strip()]
 
-  # Create data dictionary
-  data = {
-      'path': 'dataset',
-      'train': 'train/images',
-      'val': 'validation/images',
-      'nc': number_of_classes,
-      'names': classes
-  }
+def make(name):
+    data = {
+        "path": "dataset/splits/"+name,
+        "train": "train/images",
+        "val": "val/images",
+        "test": "test/images",
+        "nc": len(classes),
+        "names": classes
+    }
+    with open(ROOT/f"dataset/data_{name}.yaml","w") as f:
+        yaml.dump(data,f,sort_keys=False)
 
-  # Write data to YAML file
-  with open(path_to_data_yaml, 'w') as f:
-    yaml.dump(data, f, sort_keys=False)
-  print(f'Created config file at {path_to_data_yaml}')
-
-  return
-
-# Define path to classes.txt and run function
-path_to_classes_txt = 'dataset/classes.txt'
-path_to_data_yaml = 'dataset/data.yaml'
-
-create_data_yaml(path_to_classes_txt, path_to_data_yaml)
-
-print('\nFile contents:\n')
-
-with open(path_to_data_yaml, 'r') as f:
-    print(f.read())
+make("raw")
+make("enhanced")
+print("YAML created")

@@ -1,44 +1,27 @@
-import subprocess
-import sys
+import subprocess, sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-SCRIPTS = ROOT / "scripts"
-
-PYTHON = sys.executable
+S = ROOT / "scripts"
+PY = sys.executable
 
 
 def run(cmd):
-    print(f"\nRUNNING: {' '.join(cmd)}\n")
-    result = subprocess.run(cmd)
-    if result.returncode != 0:
+    print("\nRUNNING:", " ".join(map(str, cmd)))
+    if subprocess.run(cmd).returncode != 0:
         print("STOPPED DUE TO ERROR")
-        sys.exit(1)
+        exit(1)
 
 
 def main():
 
-    # 1. Split dataset
-    run([
-        PYTHON,
-        str(SCRIPTS / "split_dataset.py"),
-        "--datapath", str(ROOT / "dataset"),
-        "--train_pct", "0.8"
-    ])
+    run([PY, S / "enhance_dataset.py"])
+    run([PY, S / "split_dataset.py"])
+    run([PY, S / "create_data_yaml.py"])
+    run([PY, S / "train.py"])
+    run([PY, S / "evaluate.py"])
 
-    # 2. Create data.yaml
-    run([
-        PYTHON,
-        str(SCRIPTS / "create_data_yaml.py")
-    ])
-
-    # 3. Train model
-    run([
-        PYTHON,
-        str(SCRIPTS / "train.py")
-    ])
-
-    print("\nALL STEPS COMPLETED SUCCESSFULLY\n")
+    print("\nALL PIPELINE STEPS COMPLETED SUCCESSFULLY\n")
 
 
 if __name__ == "__main__":
